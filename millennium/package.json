@@ -5,7 +5,7 @@
   "packageManager": "pnpm@11.25.0",
   "description": "Steam 家庭库透视的 Millennium 插件形态",
   "scripts": {
-    "build": "starlight pack -o ../build-local",
+    "build": "node -e \"require('node:fs').mkdirSync('../build-local', { recursive: true })\" && starlight pack -o ../build-local",
     "deploy": "starlight pack",
     "watch": "starlight watch",
     "lsp": "starlight lsp"
