@@ -1,0 +1,28 @@
+# Public repository: Millennium plugin source only.
+# Local probes, captures, screenshots and old packages are not build inputs.
+/tools/
+/build-local/
+/release/
+/docs/
+/start.cmd
+/src/*
+!/src/ui/
+/src/ui/*
+!/src/ui/core.js
+
+# Dependencies and local state. The pnpm lockfile is intentionally tracked.
+/millennium/node_modules/
+/millennium/.millennium/
+/node_modules/
+/dist-millennium/
+*.star
+*.zip
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.har
+*.log
+.env
+.env.*
+!.env.example

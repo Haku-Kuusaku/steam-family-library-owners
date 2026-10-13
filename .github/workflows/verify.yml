@@ -1,0 +1,47 @@
+name: Verify Millennium plugin
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.14.1
+          cache: pnpm
+          cache-dependency-path: millennium/pnpm-lock.yaml
+      - name: Test shared UI logic
+        run: npm test
+      - name: Install locked dependencies
+        working-directory: millennium
+        run: pnpm install --frozen-lockfile
+      - name: Verify generated core is committed
+        shell: pwsh
+        run: |
+          node millennium/scripts/sync-core.mjs
+          git diff --exit-code -- millennium/frontend/core.ts
+      - name: Typecheck
+        working-directory: millennium
+        run: pnpm exec tsc --noEmit
+      - name: Build package
+        working-directory: millennium
+        run: pnpm build
+      - name: Record package hash
+        shell: pwsh
+        run: Get-FileHash build-local/com.familylens.steamlibrary.star -Algorithm SHA256 | Format-List
+      - uses: actions/upload-artifact@v4
+        with:
+          name: steam-family-library-owners-${{ github.sha }}
+          path: build-local/com.familylens.steamlibrary.star
+          if-no-files-found: error

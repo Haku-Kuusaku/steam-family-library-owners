@@ -1,0 +1,22 @@
+# Steam 家庭库透视 —— Millennium 插件形态
+# 与免安装原型（项目根目录的 src/）共享同一套界面逻辑，
+# 差别只在于：这里直接跑在 Steam 的 SharedJSContext 里，数据不用跨上下文搬运。
+
+[plugin]
+id = "com.familylens.steamlibrary"
+name = "Steam 家庭库透视"
+version = "0.1.0"
+author = "family-lens"
+description = "在 Steam 库里直观显示家庭共享游戏由哪些成员持有、共有几份，并支持按家庭成员筛选。"
+
+[frontend]
+entry = "frontend/index.tsx"
+
+[compiler]
+# 由 Starlight 发现本机 Millennium 安装并部署到其插件目录。
+output_path = "auto"
+
+[dev]
+# 禁用 watch 模式自动刷新；当前 Starlight 的 pack 仍可能单独发出 HMR。
+auto_restart = false
+reload_steamui_when = "never"

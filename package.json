@@ -1,0 +1,13 @@
+{
+  "name": "steam-family-library-owners",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Steam 家庭库透视 —— Millennium 插件的共享界面逻辑与测试",
+  "scripts": {
+    "test": "node --test tests/core-logic.test.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
